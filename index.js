@@ -19,6 +19,13 @@ const server = http.createServer(app);
 
 // Utilization
 app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      scriptSrc: ["'self'", "https://cdn.tailwindcss.com/"],
+    },
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -39,6 +46,10 @@ app.group("/api/v1", (router) => {
   router.use("/guests", multer().none(), GuestsRoutes);
   router.use("/reservations", multer().none(), ReservationRoutes);
   router.use("/rooms", multer().none(), RoomRoutes);
+});
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
 });
 
 // Server Configuration
