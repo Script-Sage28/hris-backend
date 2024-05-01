@@ -1,5 +1,5 @@
 const { isNil } = require("lodash");
-const { Sequelize, guests } = require("../../../models");
+const { Sequelize, guests, transactions } = require("../../../models");
 const sequelizeOpt = Sequelize.Op;
 class GuestsServices {
   async fetchGuests() {

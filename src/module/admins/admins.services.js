@@ -19,10 +19,13 @@ class AdminServices {
 
       if (admin) {
         if (!(await bcrypt.compare(data.password, admin.password))) {
-          return "Invalid username or password";
+        return {success:0,message:"Invalid username or password"};
         }
+        return {success:1,results:admin};
+      }else{
+        return {success:0,message:"No existing admin"};
       }
-      return admin;
+      
     } catch (error) {
       throw Error(error);
     }

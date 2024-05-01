@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "savant_sage_hris",
-    "host": "127.0.0.1",
+    "username": "u159165043_savant_user",
+    "password": "$av@nTsAg3!2024",
+    "database": "u159165043_hris_savant",
+    "host": "srv1445.hstgr.io",
     "dialect": "mysql",
     "dialectModule": "mysql2"
   },
@@ -15,10 +15,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "u159165043_savant_user",
+    "password": "$av@nTsAg3!2024",
+    "database": "u159165043_hris_savant",
+    "host": "srv1445.hstgr.io",
+    "dialect": "mysql",
+    "dialectModule": "mysql2"
   }
 }

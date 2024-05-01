@@ -14,13 +14,14 @@ class AdminController {
   async login(request, response) {
     try {
       const data = request.body;
+      console.log(data)
       const { error } = loginValidator(data);
       if (error)
         return response
           .status(STATUS_CODES.BAD_REQUEST)
           .json({ message: error.message });
       return response.send({
-        data: await this.adminServices.login(data),
+        data:await this.adminServices.login(data),
       });
     } catch (error) {
       return response.status(500).json({ message: error.message });

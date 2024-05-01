@@ -2,23 +2,35 @@ const { Sequelize, reservations, rooms, guests } = require("../../../models");
 const sequelizeOpt = Sequelize.Op;
 class RoomsServices {
   async getAllRooms(data) {
+    let whereClause = {};
+    if(data?.noOfPax){
+      whereClause = {
+        [Op.or]:[
+          {
+            minimumCapacity:{
+              [Op.gte]: data.noOfPax,
+              [Op.not]: null
+            }
+          },
+          {
+            maximumCapacity:{
+              [Op.lte]: data.noOfPax,
+              [Op.not]: null
+            }
+          }
+        ]
+      }
+    }
     try {
       const allRooms = await rooms.scope(["guestsInfo"]).findAll({
-        where: {
-          [sequelizeOpt.or]: [
-            {
-              minimumCapacity: {
-                [sequelizeOpt.gte]: data?.noOfPax,
-              },
-            },
-            {
-              maximumCapacity: {
-                [sequelizeOpt.lte]: data?.noOfPax,
-              },
-            },
-          ],
-        },
+        where: whereClause,
+        include: [{
+          model: guests,
+          as: 'guests',
+          attributes: ['id', 'firstName', 'middleInitial', 'lastName', 'houseNo', 'street', 'barangay', 'city', 'province', 'contactNo', 'createdAt', 'updatedAt'],
+        }],
       });
+      console.log(allRooms)
       return allRooms;
     } catch (error) {
       throw Error(error);
